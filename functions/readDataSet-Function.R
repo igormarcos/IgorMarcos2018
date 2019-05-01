@@ -8,7 +8,7 @@ write.data.work <- function(dataSetObject.in)
   #Gerenerate Files gml
   for (i in 1:num_TimeStart)
   {
-    dir_name <<- paste(RESULTS_PATH,"Results_", name.file ,"_", i, "_to_", num_TimeStart, sep="")
+    dir_name <<- paste(GRAPHS_PATH,"Results_", name.file ,"_", i, "_to_", num_TimeStart, sep="")
     #file_name.write = paste(dir_name,".dat", sep="");
     file_name.write.gml = paste(dir_name,".gml", sep="");
     cat("Generate output files about input file\n");
@@ -34,6 +34,7 @@ search.file <- function ()
     file.search <- file.choose() #Select file
     name.file <<- basename(file.search) #Isolate FileName - Global
     cat("File Choosed: ", file.search, "\n") #Print File Choosed
-    dataSetObj <- read.table(file.search,sep = " ", header = T, quote = ".")
-    write.data.work(dataSetObj)
+    dataSetObjFULL <<- read.table(file.search,sep = " ", header = T, quote = ".")
+    #dir.create() criar pasta com o nome do arquivo aqui!
+    write.data.work(dataSetObjFULL)
   }

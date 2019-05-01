@@ -1,5 +1,5 @@
 #Summary Graph
-writeDataFromGraph <- function (NetworkFile, Ed, Ve, d, D, L, CA, B, CLos)
+writeDataFromGraph <- function (NetworkFile, position, Ed, Ve, d, D, L, CA, B, CLos, MDist)
   {
     cat("\n");
     cat("=========Parameters======== \n");
@@ -31,6 +31,10 @@ writeDataFromGraph <- function (NetworkFile, Ed, Ve, d, D, L, CA, B, CLos)
     ClosenessNetwork <- CLos
     #ClosenessNetwork = as.numeric(levels(ClosenessNetwork))[ClosenessNetwork]
     #cat("=========================== \n");
+    cat("Mean Distance: ", MDist, "\n");
+    MeanDistance <- MDist
+    cat("Position: ", position, "\n");
+    PositionFile <- position
     cat("Write on dataframe \n");
-    frame_data.Table<<-rbind(frame_data.Table,data.frame(setNames(as.list(c(Network,Edges,Vertices,AverageDegree,MaxDegree,DiameterNetwork,CoefficientAgroupment,BetweennessMedium,ClosenessNetwork)),names(frame_data.Table)),stringsAsFactors = FALSE))
+    frame_data.Table<<-rbind(frame_data.Table,data.frame(setNames(as.list(c(Network,PositionFile,Edges,Vertices,AverageDegree,MaxDegree,DiameterNetwork,CoefficientAgroupment,BetweennessMedium,ClosenessNetwork,MeanDistance)),names(frame_data.Table)),stringsAsFactors = FALSE))
 }

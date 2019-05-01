@@ -14,6 +14,11 @@ packages(utils)     #For use write files
 packages(ggplot2)   #For use graphic plot
 packages(statip)    #For use Hellinger Distance
 packages(gtools)    #Sort Files
+packages(MASS)
+packages(poweRlaw)
+
+#turn-off scientific notation like 1e+48
+options(scipen=999)
 
 #Load Library
 library(igraph) 
@@ -22,13 +27,16 @@ library(utils)
 library(ggplot2)
 library(statip)
 library(gtools)
+library(MASS)
+library(poweRlaw)
 
 #Set and Load Path
 runningpath <- function(Path) {
   if (Path == "WORK")
   {
-    # Set path WORK
+    # Set path WORK 
     CURRENT_VERSION_PATH <<- "C:/Users/igormarcos/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
+    #CURRENT_VERSION_PATH <<- "C:/Users/Igor/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
     FUNCTIONS_PATH <<- paste(CURRENT_VERSION_PATH,"functions/",sep="");
     DATASETS_PATH <<- paste(CURRENT_VERSION_PATH,"datasets/",sep="");
     GRAFICS_PATH <<- paste(CURRENT_VERSION_PATH,"grafics/",sep="");
@@ -49,11 +57,7 @@ runningpath <- function(Path) {
     TEMP_PATH <<- paste(CURRENT_VERSION_PATH,"temp/",sep="");
     UTIL_PATH <<- paste(CURRENT_VERSION_PATH, "util/",sep="");
   }
-  #else
-   # {
-   # cat("Only answer HOME or WORK, run again!\n");
-  #  quit("yes")
-  #}
+
   
   # Load functions
   file_list <- list.files(path=FUNCTIONS_PATH, pattern="*.R") # create list of all .R files in folder
@@ -65,16 +69,14 @@ runningpath <- function(Path) {
 }
 
 #Define running PATH
-#cat("Define running path\n");
-#cat("HOME\n");
-#cat("WORK\n");
-#path.de <- readline(prompt="Where are you?\n");
-runningpath("HOME")
-#Log CMD R on File
-#sink(paste(GRAFICS_PATH, "prompt",".txt", sep=""))
 
-#Define frame
-#frame_data.Table <<- data.frame("NetworkFile" = character(40), "Ed" = numeric(10), "Ve" = numeric(10), "d" = numeric(10), "D" = numeric(5), "L" = numeric(4), "CA" = numeric(10), "B" = numeric(4), "CLos" = numeric(4), stringsAsFactors=F)
+runningpath("WORK")
+#Log CMD R on File
+#sink(paste(RESULTS_PATH, "prompt",".txt", sep=""))
+#Create RESULTS_PATH if not exists
+#ifelse(!dir.exists(file.path(CURRENT_VERSION_PATH, RESULTS_PATH)), dir.create(file.path(CURRENT_VERSION_PATH, RESULTS_PATH), FALSE))
+#Create GRAFICS_PATH if not exists
+#ifelse(!dir.exists(file.path(CURRENT_VERSION_PATH, GRAFICS_PATH)), dir.create(file.path(CURRENT_VERSION_PATH, GRAFICS_PATH), showWarnings = FALSE))
 
 #Read txt Files
 cat("Invoke file object txt\n");
@@ -89,7 +91,7 @@ load.data.work()
 
 #Write DataFrame
 setwd(RESULTS_PATH)
-summaryFile <- paste(GRAFICS_PATH, name.file,".csv", sep="")
+summaryFile <- paste(RESULTS_PATH, name.file,".csv", sep="")
 write.csv(frame_data.Table, summaryFile, row.names = FALSE)
 
 #Generete Histograms
@@ -107,16 +109,43 @@ generate.histogramsClosenessNetwork(frame_data.Table)
 
 #Calculate Helinger
 
-calculate.hellinger.frame(frame_data.Table)
-generate.histogramsHellinger(frame_data.Hellinger)
+#calculate.hellinger.frame(frame_data.Table)
+calculate.hellinger.frame.new(frame_data.Table)
+#generate.histogramsHellinger(frame_data.Hellinger)
+generate.histogramsHellinger.new(frame_data.Hellinger)
 
+#Write DataFrame-Hellinger
+setwd(RESULTS_PATH)
+summaryFile <- paste(RESULTS_PATH, name.file,"-Hellinger",".csv", sep="")
+write.csv(frame_data.Hellinger, summaryFile, row.names = FALSE)
+
+#Plot DegreeDistribution
+cat("Plot DegreeDistribution for Full DataSet\n");
+plot.DegreeDisribution()
+
+cat("Plot Average Minimum Path\n");
+plot.AverageMinimumPath()
+
+cat("Plot Coefficient Agroupment\n");
+plot.CoefficienteAgroupment()
+
+cat("Plot Betweenness Medium\n");
+plot.Betweenness()
+
+cat("Plot Diameter (L Distance)\n");
+plot.Diameter()
+#Plot Hellinger
+plot.hellinger(frame_data.Hellinger)
+#Write DataFrame-HellingerMean
+summaryFile <- paste(RESULTS_PATH, name.file,"-ResultHellingerMean",".csv", sep="")
+write.csv(frame_data.MeanHellinger, summaryFile, row.names = FALSE)
 #=======Algoritm=========#
 
 #Load DataSet Vanet - Done
 #Convert Graph to gml - Done
 #Calculate Metrics - Done
 #Calculate Histograms - Done
-#Calculate Helinger's Distance - Doing
-#Plot grafics
+#Calculate Helinger's Distance - Done
+#Plot grafics - Done
 
 #========================#

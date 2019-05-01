@@ -32,7 +32,8 @@ write.graph.parameters_Diameter <- function (graph_to_calculate)
 write.graph.parameters_CA <- function (graph_to_calculate)
 {
   #Diameter Coefficient Agroupment CA
-  CAgroup <<- transitivity(graph_to_calculate)
+  #CAgroup <<- transitivity(graph_to_calculate)
+  CAgroup <<- transitivity(graph_to_calculate, type="average")
 }
 
 write.graph.parameters_Betweenness <- function (graph_to_calculate)
@@ -48,4 +49,11 @@ write.graph.parameters_Closeness <- function (graph_to_calculate)
   #Diameter Closeness
   #CLosen <<- closeness(graph_to_calculate)
   CLosen <<- median(closeness(graph_to_calculate))
+}
+
+write.graph.parameters_meanDistante <- function (graph_to_calculate)
+{
+  #Diameter Closeness
+  #CLosen <<- closeness(graph_to_calculate)
+  MDistance <<- mean_distance(graph_to_calculate)
 }

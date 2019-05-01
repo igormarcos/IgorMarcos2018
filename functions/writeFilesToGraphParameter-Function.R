@@ -33,6 +33,9 @@ write.graph.parameters <- function (graph_to_calculate)
   #Closeness
   cat("Calculate Closeness \n");
   write.graph.parameters_Closeness(graph_to_calculate)
+  #Mean Distance
+  cat("Calculate Mean Distance \n");
+  write.graph.parameters_meanDistante(graph_to_calculate)
   #Write on dataframe
-  writeDataFromGraph (graph_work.now, edgesGraf, verticesGraf, meanD, MaxD, LDiameter, CAgroup, Betw, CLosen)
+  writeDataFromGraph (graph_work.now, positionStartRead, edgesGraf, verticesGraf, meanD, MaxD, LDiameter, CAgroup, Betw, CLosen, MDistance)
   }
