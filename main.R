@@ -35,8 +35,8 @@ runningpath <- function(Path) {
   if (Path == "WORK")
   {
     # Set path WORK 
-    CURRENT_VERSION_PATH <<- "C:/Users/igormarcos/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
-    #CURRENT_VERSION_PATH <<- "C:/Users/Igor/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
+    #CURRENT_VERSION_PATH <<- "C:/Users/igormarcos/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
+    CURRENT_VERSION_PATH <<- "C:/Users/Igor/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
     FUNCTIONS_PATH <<- paste(CURRENT_VERSION_PATH,"functions/",sep="");
     DATASETS_PATH <<- paste(CURRENT_VERSION_PATH,"datasets/",sep="");
     GRAFICS_PATH <<- paste(CURRENT_VERSION_PATH,"grafics/",sep="");
@@ -48,7 +48,8 @@ runningpath <- function(Path) {
   if (Path == "HOME")
   {
     #Set path HOME
-    CURRENT_VERSION_PATH <<- "/Users/igoroliveira/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
+    #CURRENT_VERSION_PATH <<- "/Users/igoroliveira/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
+    CURRENT_VERSION_PATH <<- "C:/Users/Igor Oliveira/Dropbox/Mestrado UFAL/TCC/IgorMarcos2018/";
     FUNCTIONS_PATH <<- paste(CURRENT_VERSION_PATH,"functions/",sep="");
     DATASETS_PATH <<- paste(CURRENT_VERSION_PATH,"datasets/",sep="");
     GRAFICS_PATH <<- paste(CURRENT_VERSION_PATH,"grafics/",sep="");
@@ -70,7 +71,7 @@ runningpath <- function(Path) {
 
 #Define running PATH
 
-runningpath("WORK")
+runningpath("HOME")
 #Log CMD R on File
 #sink(paste(RESULTS_PATH, "prompt",".txt", sep=""))
 #Create RESULTS_PATH if not exists
@@ -134,11 +135,21 @@ plot.Betweenness()
 
 cat("Plot Diameter (L Distance)\n");
 plot.Diameter()
-#Plot Hellinger
-plot.hellinger(frame_data.Hellinger)
-#Write DataFrame-HellingerMean
-summaryFile <- paste(RESULTS_PATH, name.file,"-ResultHellingerMean",".csv", sep="")
-write.csv(frame_data.MeanHellinger, summaryFile, row.names = FALSE)
+
+cat("Plot Average Minimum Path And CA Groupment\n");
+plot.AverageMinimumPathAndCAgroupment ();
+
+cat("Plot AverageMinimum Path VS Betweenness Medium\n");
+plot.AverageMinimumPathVSBetweennessMedium()
+
+#Plot Hellinger<-in construction
+#plot.hellinger(frame_data.Hellinger)
+#Write DataFrame-DataTable
+summaryFile <- paste(RESULTS_PATH, name.file,"-ResultDataTable",".csv", sep="")
+write.csv(frame_data.Table, summaryFile, row.names = FALSE)
+#Write DataFrame-dataSetObjFull
+summaryFile <- paste(RESULTS_PATH, name.file,"-ResultObjFULL",".csv", sep="")
+write.csv(dataSetObjFULL, summaryFile, row.names = FALSE)
 #=======Algoritm=========#
 
 #Load DataSet Vanet - Done
